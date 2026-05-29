@@ -1,4 +1,4 @@
-import { Product } from '../../services/catalogService';
+import type { Product } from '../../services/productTypes';
 
 interface ProductImageGalleryProps {
   product: Product;

@@ -6,7 +6,7 @@ import { useCart } from '../hooks/useCart';
 import { useCatalog } from '../hooks/useCatalog';
 import { useFilters } from '../hooks/useFilters';
 import { useProductFilters } from '../hooks/useProductFilters';
-import { InventoryStatus } from '../services/catalogService';
+import type { InventoryStatus } from '../services/productTypes';
 
 const ProductsPage = () => {
   const { categories, loading } = useCatalog();

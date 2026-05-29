@@ -1,4 +1,4 @@
-import { InventoryStatus as InventoryStatusType } from '../../services/catalogService';
+import type { InventoryStatus as InventoryStatusType } from '../../services/productTypes';
 
 const inventoryLabels: Record<InventoryStatusType, string> = {
   'in-stock': 'Disponible',

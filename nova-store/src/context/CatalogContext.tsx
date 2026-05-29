@@ -1,5 +1,6 @@
 import { createContext, ReactNode, useEffect, useMemo, useState } from 'react';
-import { getProducts, Product } from '../services/catalogService';
+import { getProducts } from '../services/productRestService';
+import type { Product } from '../services/productTypes';
 
 interface CatalogContextValue {
   products: Product[];
@@ -20,10 +21,18 @@ export const CatalogProvider = ({ children }: CatalogProviderProps) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let isMounted = true;
+
     getProducts().then((data) => {
+      if (!isMounted) return;
+
       setProducts(data);
       setLoading(false);
     });
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const categories = useMemo(

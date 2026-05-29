@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { filterProducts } from '../services/catalogService';
+import { filterProducts } from '../services/productFilterService';
 import { useCatalog } from './useCatalog';
 import { useFilters } from './useFilters';
 

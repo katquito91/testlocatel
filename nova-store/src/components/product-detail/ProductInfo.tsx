@@ -1,4 +1,4 @@
-import { Product } from '../../services/catalogService';
+import type { Product } from '../../services/productTypes';
 import { formatCurrency } from '../../utils/formatCurrency';
 import AddToCartButton from './AddToCartButton';
 import InventoryStatus from './InventoryStatus';

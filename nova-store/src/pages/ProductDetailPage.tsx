@@ -3,13 +3,19 @@ import { useState } from 'react';
 import ProductImageGallery from '../components/product-detail/ProductImageGallery';
 import ProductInfo from '../components/product-detail/ProductInfo';
 import { useCart } from '../hooks/useCart';
-import { getProductById, Product } from '../services/catalogService';
+import { useCatalog } from '../hooks/useCatalog';
+import type { Product } from '../services/productTypes';
 
 const ProductDetailPage = () => {
   const { id } = useParams();
   const { addToCart } = useCart();
+  const { loading, products } = useCatalog();
   const [confirmationMessage, setConfirmationMessage] = useState('');
-  const product = getProductById(Number(id));
+  const product = products.find((item) => item.id === Number(id));
+
+  if (loading) {
+    return <p>Cargando producto...</p>;
+  }
 
   if (!product) {
     return (

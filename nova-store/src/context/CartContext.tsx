@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useMemo, useState } from 'react';
-import { Product } from '../services/catalogService';
+import type { Product } from '../services/productTypes';
 
 export interface CartItem {
   product: Product;

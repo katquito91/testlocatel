@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Product } from '../services/catalogService';
+import type { Product } from '../services/productTypes';
 import { formatCurrency } from '../utils/formatCurrency';
 import Badge from './Badge';
 import Button from './Button';

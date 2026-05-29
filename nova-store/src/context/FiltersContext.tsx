@@ -1,8 +1,6 @@
 import { createContext, ReactNode, useMemo, useState } from 'react';
-import {
-  defaultFilters,
-  ProductFilters,
-} from '../services/catalogService';
+import { defaultFilters } from '../services/productFilterService';
+import type { ProductFilters } from '../services/productTypes';
 
 interface FiltersContextValue {
   filters: ProductFilters;
