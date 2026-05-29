@@ -11,6 +11,11 @@ interface ProductCardProps {
 
 const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
   const isOutOfStock = product.inventoryStatus === 'out-of-stock';
+  const inventoryLabel = {
+    'in-stock': 'Disponible',
+    'low-stock': 'Pocas unidades',
+    'out-of-stock': 'Sin stock',
+  }[product.inventoryStatus];
 
   return (
     <article className="product-card">
@@ -18,6 +23,11 @@ const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
       <div className="product-card__content">
         {product.badge && <Badge label={product.badge} />}
         <p className="product-card__category">{product.category}</p>
+        <p
+          className={`product-card__inventory product-card__inventory--${product.inventoryStatus}`}
+        >
+          {inventoryLabel}
+        </p>
         <h3>
           <Link to={`/product/${product.id}`}>{product.name}</Link>
         </h3>
