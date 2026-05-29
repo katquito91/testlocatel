@@ -284,6 +284,27 @@
   gap: 1rem;
 }
 
+.cart-empty,
+.cart-feedback {
+  border-radius: 0.75rem;
+  margin: 0;
+  padding: 1rem;
+}
+
+.cart-empty {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #475569;
+}
+
+.cart-feedback {
+  background: #ecfeff;
+  border: 1px solid #67e8f9;
+  color: #155e75;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
 .cart-item,
 .cart-summary {
   border: 1px solid #e2e8f0;
