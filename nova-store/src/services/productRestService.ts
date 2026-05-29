@@ -6,11 +6,14 @@ const PRODUCTS_API_URL =
 interface BackendProduct {
   id: number;
   name: string;
+  description: string;
   category: string;
   price: number;
-  stock: number;
   rating: number;
-  description: string;
+  imageUrl: string;
+  badge?: string;
+  stock: number;
+  inventoryStatus?: InventoryStatus;
 }
 
 const getInventoryStatus = (stock: number): InventoryStatus => {
@@ -29,12 +32,10 @@ const mapBackendProductToProduct = (product: BackendProduct): Product => ({
   category: product.category,
   price: product.price,
   rating: product.rating,
-  imageUrl: `https://via.placeholder.com/320x240?text=${encodeURIComponent(
-    product.name
-  )}`,
-  badge: getProductBadge(product.rating),
+  imageUrl: product.imageUrl,
+  badge: product.badge ?? getProductBadge(product.rating),
   stock: product.stock,
-  inventoryStatus: getInventoryStatus(product.stock),
+  inventoryStatus: product.inventoryStatus ?? getInventoryStatus(product.stock),
 });
 
 export const fetchProductsFromBackend = async (): Promise<Product[]> => {
