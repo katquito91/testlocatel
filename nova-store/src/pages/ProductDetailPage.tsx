@@ -32,14 +32,21 @@ const ProductDetailPage = () => {
   };
 
   return (
-    <section className="product-detail">
-      <ProductImageGallery product={product} />
-      <ProductInfo
-        product={product}
-        confirmationMessage={confirmationMessage}
-        onAddToCart={handleAddToCart}
-      />
-    </section>
+    <>
+      <nav className="breadcrumbs" aria-label="Breadcrumb">
+        <Link to="/products">Catalogo</Link>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">{product.name}</span>
+      </nav>
+      <section className="product-detail">
+        <ProductImageGallery product={product} />
+        <ProductInfo
+          product={product}
+          confirmationMessage={confirmationMessage}
+          onAddToCart={handleAddToCart}
+        />
+      </section>
+    </>
   );
 };
 
