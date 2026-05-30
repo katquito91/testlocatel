@@ -10,7 +10,11 @@ interface BackendProduct {
   category: string;
   price: number;
   rating: number;
-  imageUrl: string;
+  imageUrl?: string;
+  images?: {
+    main: string;
+    others?: string[];
+  };
   badge?: string;
   stock: number;
   inventoryStatus?: InventoryStatus;
@@ -28,18 +32,33 @@ const getProductBadge = (rating: number): string | undefined =>
 const getSquareImageUrl = (imageUrl: string): string =>
   imageUrl.replace('320x240', '320x320');
 
-const mapBackendProductToProduct = (product: BackendProduct): Product => ({
-  id: product.id,
-  name: product.name,
-  description: product.description,
-  category: product.category,
-  price: product.price,
-  rating: product.rating,
-  imageUrl: getSquareImageUrl(product.imageUrl),
-  badge: product.badge ?? getProductBadge(product.rating),
-  stock: product.stock,
-  inventoryStatus: product.inventoryStatus ?? getInventoryStatus(product.stock),
-});
+const getProductImages = (product: BackendProduct): Product['images'] => {
+  const mainImageUrl = product.images?.main ?? product.imageUrl ?? '';
+
+  return {
+    main: getSquareImageUrl(mainImageUrl),
+    others: product.images?.others ?? [],
+  };
+};
+
+const mapBackendProductToProduct = (product: BackendProduct): Product => {
+  const images = getProductImages(product);
+
+  return {
+    id: product.id,
+    name: product.name,
+    description: product.description,
+    category: product.category,
+    price: product.price,
+    rating: product.rating,
+    imageUrl: images.main,
+    images,
+    badge: product.badge ?? getProductBadge(product.rating),
+    stock: product.stock,
+    inventoryStatus:
+      product.inventoryStatus ?? getInventoryStatus(product.stock),
+  };
+};
 
 export const fetchProductsFromBackend = async (): Promise<Product[]> => {
   const response = await fetch(PRODUCTS_API_URL);

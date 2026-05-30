@@ -8,6 +8,10 @@ export interface Product {
   price: number;
   rating: number;
   imageUrl: string;
+  images: {
+    main: string;
+    others: string[];
+  };
   badge?: string;
   stock: number;
   inventoryStatus: InventoryStatus;
