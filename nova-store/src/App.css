@@ -440,6 +440,10 @@
     height: 360px;
   }
 
+  .product-card img {
+    height: 280px;
+  }
+
   .product-gallery__thumbs img {
     height: 84px;
   }
@@ -492,6 +496,10 @@
 
   .product-detail img {
     height: 280px;
+  }
+
+  .product-card img {
+    height: 240px;
   }
 
   .product-gallery__thumbs img {
