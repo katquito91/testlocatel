@@ -129,6 +129,21 @@ https://000a4cbe-cf59-467a-9928-0e94d391f532.mock.pstmn.io/products
 - Los filtros funcionan como sidebar en desktop y panel colapsable en móvil.
 - Se ajustaron imágenes de cards, detalle y miniaturas para desktop, tablet y móvil.
 
+## Pruebas unitarias
+
+Se agregaron pruebas unitarias con Jest y React Testing Library para cubrir lógica de negocio y componentes principales:
+
+- `productFilterService.test.ts` valida filtros combinados por búsqueda, categoría, precio e inventario, además de ordenamientos por precio y rating.
+- `productRestService.test.ts` valida el mapeo de productos desde el backend, normalización de imágenes `320x240` a `320x320`, uso de imágenes principales y galería, campos derivados como `badge` e `inventoryStatus`, y errores HTTP.
+- `CartSummary.test.tsx` valida la presentación de subtotal, impuestos y total, el enlace hacia `/checkout` cuando el pago está habilitado, y el botón deshabilitado cuando el carrito está vacío.
+- `CartItem.test.tsx` valida la imagen principal del producto, datos visibles del item, cantidad seleccionada, actualización de cantidad y eliminación del producto.
+
+Las pruebas agregadas se ejecutan con:
+
+```bash
+npm test -- --watchAll=false
+```
+
 ## Verificaciones ejecutadas
 
 Durante la implementación se ejecutaron estas verificaciones:
