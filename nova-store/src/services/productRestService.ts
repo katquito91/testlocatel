@@ -25,6 +25,9 @@ const getInventoryStatus = (stock: number): InventoryStatus => {
 const getProductBadge = (rating: number): string | undefined =>
   rating >= 4.6 ? 'Destacado' : undefined;
 
+const getSquareImageUrl = (imageUrl: string): string =>
+  imageUrl.replace('320x240', '320x320');
+
 const mapBackendProductToProduct = (product: BackendProduct): Product => ({
   id: product.id,
   name: product.name,
@@ -32,7 +35,7 @@ const mapBackendProductToProduct = (product: BackendProduct): Product => ({
   category: product.category,
   price: product.price,
   rating: product.rating,
-  imageUrl: product.imageUrl,
+  imageUrl: getSquareImageUrl(product.imageUrl),
   badge: product.badge ?? getProductBadge(product.rating),
   stock: product.stock,
   inventoryStatus: product.inventoryStatus ?? getInventoryStatus(product.stock),

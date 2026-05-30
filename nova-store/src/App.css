@@ -148,7 +148,15 @@
   overflow: hidden;
 }
 
-.product-card img,
+.product-card img {
+  background: #fff;
+  display: block;
+  height: 320px;
+  object-fit: contain;
+  padding: 1rem;
+  width: 100%;
+}
+
 .product-detail img {
   background: #f1f5f9;
   display: block;
