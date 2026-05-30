@@ -144,6 +144,17 @@ Las pruebas agregadas se ejecutan con:
 npm test -- --watchAll=false
 ```
 
+## Pruebas de integración
+
+Se agregó `App.integration.test.tsx` para validar flujos completos de la aplicación usando `App` con rutas, contextos reales y el servicio REST mockeado:
+
+- Carga del catálogo desde datos simulados del backend.
+- Filtrado del catálogo por texto de búsqueda.
+- Agregar un producto al carrito desde el catálogo.
+- Navegar desde el carrito hacia checkout.
+- Completar y enviar el formulario de facturación y pago.
+- Validar el mensaje de confirmación del checkout.
+
 ## Verificaciones ejecutadas
 
 Durante la implementación se ejecutaron estas verificaciones:
