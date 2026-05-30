@@ -6,6 +6,7 @@ interface CatalogContextValue {
   products: Product[];
   categories: string[];
   loading: boolean;
+  error: string | null;
 }
 
 export const CatalogContext = createContext<CatalogContextValue | undefined>(
@@ -19,16 +20,28 @@ interface CatalogProviderProps {
 export const CatalogProvider = ({ children }: CatalogProviderProps) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     let isMounted = true;
 
-    getProducts().then((data) => {
-      if (!isMounted) return;
+    getProducts()
+      .then((data) => {
+        if (!isMounted) return;
 
-      setProducts(data);
-      setLoading(false);
-    });
+        setProducts(data);
+        setError(null);
+      })
+      .catch(() => {
+        if (!isMounted) return;
+
+        setError('No se pudieron cargar los productos. Intenta de nuevo mas tarde.');
+      })
+      .finally(() => {
+        if (!isMounted) return;
+
+        setLoading(false);
+      });
 
     return () => {
       isMounted = false;
@@ -41,8 +54,8 @@ export const CatalogProvider = ({ children }: CatalogProviderProps) => {
   );
 
   const value = useMemo(
-    () => ({ products, categories, loading }),
-    [products, categories, loading]
+    () => ({ products, categories, loading, error }),
+    [products, categories, loading, error]
   );
 
   return (

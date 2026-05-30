@@ -1,18 +1,13 @@
 import { FormEvent, useState } from 'react';
-import { Link } from 'react-router-dom';
+import Breadcrumbs from '../components/Breadcrumbs';
 import CartSummary from '../components/cart/CartSummary';
 import { useCart } from '../hooks/useCart';
+import { useCartTotals } from '../hooks/useCartTotals';
 
 const CheckoutPage = () => {
   const { items } = useCart();
   const [confirmationMessage, setConfirmationMessage] = useState('');
-  const subtotal = items.reduce(
-    (total, item) => total + item.product.price * item.quantity,
-    0
-  );
-  const tax = subtotal * 0.08;
-  const total = subtotal + tax;
-  const isCartEmpty = items.length === 0;
+  const { subtotal, tax, total, isCartEmpty } = useCartTotals(items);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -21,13 +16,13 @@ const CheckoutPage = () => {
 
   return (
     <section className="page">
-      <nav className="breadcrumbs" aria-label="Breadcrumb">
-        <Link to="/products">Catalogo</Link>
-        <span aria-hidden="true">/</span>
-        <Link to="/cart">Carrito</Link>
-        <span aria-hidden="true">/</span>
-        <span aria-current="page">Pago</span>
-      </nav>
+      <Breadcrumbs
+        items={[
+          { label: 'Catalogo', to: '/products' },
+          { label: 'Carrito', to: '/cart' },
+          { label: 'Pago' },
+        ]}
+      />
 
       <p className="eyebrow">Checkout</p>
       <h1>Datos de facturacion y pago</h1>

@@ -1,19 +1,14 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import Breadcrumbs from '../components/Breadcrumbs';
 import CartItem from '../components/cart/CartItem';
 import CartSummary from '../components/cart/CartSummary';
 import { useCart } from '../hooks/useCart';
+import { useCartTotals } from '../hooks/useCartTotals';
 
 const CartPage = () => {
   const { items, removeFromCart, updateQuantity } = useCart();
   const [feedbackMessage, setFeedbackMessage] = useState('');
-  const subtotal = items.reduce(
-    (total, item) => total + item.product.price * item.quantity,
-    0
-  );
-  const tax = subtotal * 0.08;
-  const total = subtotal + tax;
-  const isCartEmpty = items.length === 0;
+  const { subtotal, tax, total, isCartEmpty } = useCartTotals(items);
 
   const handleRemove = (productId: number) => {
     removeFromCart(productId);
@@ -27,11 +22,12 @@ const CartPage = () => {
 
   return (
     <section className="page">
-      <nav className="breadcrumbs" aria-label="Breadcrumb">
-        <Link to="/products">Catalogo</Link>
-        <span aria-hidden="true">/</span>
-        <span aria-current="page">Carrito</span>
-      </nav>
+      <Breadcrumbs
+        items={[
+          { label: 'Catalogo', to: '/products' },
+          { label: 'Carrito' },
+        ]}
+      />
       <p className="eyebrow">Carrito</p>
       <h1>Tu carrito</h1>
 

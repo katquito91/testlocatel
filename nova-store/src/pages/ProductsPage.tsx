@@ -9,7 +9,7 @@ import { useProductFilters } from '../hooks/useProductFilters';
 import type { InventoryStatus } from '../services/productTypes';
 
 const ProductsPage = () => {
-  const { categories, loading } = useCatalog();
+  const { categories, error, loading } = useCatalog();
   const { filters, updateFilters, clearFilters } = useFilters();
   const filteredProducts = useProductFilters();
   const { addToCart } = useCart();
@@ -17,6 +17,16 @@ const ProductsPage = () => {
 
   if (loading) {
     return <p>Cargando productos...</p>;
+  }
+
+  if (error) {
+    return (
+      <section className="page">
+        <p className="cart-empty" role="alert">
+          {error}
+        </p>
+      </section>
+    );
   }
 
   return (

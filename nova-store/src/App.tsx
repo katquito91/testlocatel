@@ -1,5 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
+import './styles/responsive.css';
 import Navbar from './components/Navbar';
 import { CartProvider } from './context/CartContext';
 import { CatalogProvider } from './context/CatalogContext';

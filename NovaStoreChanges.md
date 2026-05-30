@@ -44,6 +44,8 @@ https://000a4cbe-cf59-467a-9928-0e94d391f532.mock.pstmn.io/products
 
 - Se creó `productTypes.ts` para centralizar tipos de productos, inventario y filtros.
 - Se creó `productFilterService.ts` para centralizar filtros y ordenamiento.
+- Se creó `config/api.ts` para centralizar la URL del backend y permitir configurarla con `REACT_APP_PRODUCTS_API_URL`.
+- Se agregó manejo de error en `CatalogContext` cuando falla la carga de productos.
 - Se agregó soporte para imágenes del backend con esta estructura:
 
 ```json
@@ -72,7 +74,7 @@ https://000a4cbe-cf59-467a-9928-0e94d391f532.mock.pstmn.io/products
   - `InventoryStatus`
   - `AddToCartButton`
 - Se agregó galería con imagen principal y miniaturas dinámicas.
-- Se agregaron breadcrumbs en la vista de detalle con enlace al catálogo y nombre del producto actual.
+- Se agregaron breadcrumbs reutilizables en la vista de detalle con enlace al catálogo y nombre del producto actual.
 - Se agregó confirmación visual al agregar productos al carrito.
 
 ## Carrito
@@ -82,11 +84,12 @@ https://000a4cbe-cf59-467a-9928-0e94d391f532.mock.pstmn.io/products
   - `CartItem`
   - `CartSummary`
 - Se agregó imagen principal de producto en cada item del carrito.
-- Se agregaron breadcrumbs en el carrito con enlace al catálogo.
+- Se agregaron breadcrumbs reutilizables en el carrito con enlace al catálogo.
 - Se agregó feedback visual para eliminar productos y actualizar cantidades.
 - Se deshabilita el botón de pago cuando el carrito está vacío.
 - Se estilizó el botón de checkout con bloque y margen superior.
 - El botón `Ir a pagar` navega a `/checkout` cuando el carrito tiene productos.
+- Se creó `useCartTotals` para centralizar subtotal, impuestos, total y estado de carrito vacío.
 
 ## Checkout
 
@@ -105,6 +108,7 @@ https://000a4cbe-cf59-467a-9928-0e94d391f532.mock.pstmn.io/products
 - Se muestra el resumen del carrito dentro del checkout.
 - Si el carrito está vacío, el checkout muestra un mensaje indicando que se deben agregar productos antes de pagar.
 - Se agregó confirmación visual al enviar los datos del checkout.
+- Se reutiliza `useCartTotals` para mantener el cálculo del resumen alineado con el carrito.
 
 ## Estado global y hooks
 
@@ -117,6 +121,8 @@ https://000a4cbe-cf59-467a-9928-0e94d391f532.mock.pstmn.io/products
   - `useFilters`
   - `useCart`
   - `useProductFilters`
+  - `useCartTotals`
+- Se creó `Breadcrumbs` como componente compartido para navegación contextual.
 
 ## Responsive
 
@@ -128,6 +134,7 @@ https://000a4cbe-cf59-467a-9928-0e94d391f532.mock.pstmn.io/products
 - Se implementó menú hamburguesa en móvil.
 - Los filtros funcionan como sidebar en desktop y panel colapsable en móvil.
 - Se ajustaron imágenes de cards, detalle y miniaturas para desktop, tablet y móvil.
+- Se movieron los estilos responsive a `styles/responsive.css` para separar estilos base y reglas por breakpoint.
 
 ## Pruebas unitarias
 
