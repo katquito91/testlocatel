@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import CartItem from '../components/cart/CartItem';
 import CartSummary from '../components/cart/CartSummary';
 import { useCart } from '../hooks/useCart';
@@ -26,6 +27,11 @@ const CartPage = () => {
 
   return (
     <section className="page">
+      <nav className="breadcrumbs" aria-label="Breadcrumb">
+        <Link to="/products">Catalogo</Link>
+        <span aria-hidden="true">/</span>
+        <span aria-current="page">Carrito</span>
+      </nav>
       <p className="eyebrow">Carrito</p>
       <h1>Tu carrito</h1>
 

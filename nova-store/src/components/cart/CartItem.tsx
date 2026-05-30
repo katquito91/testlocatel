@@ -13,6 +13,11 @@ const CartItem = ({
   onUpdateQuantity,
 }: CartItemProps) => (
   <article className="cart-item">
+    <img
+      className="cart-item__image"
+      src={item.product.images.main}
+      alt={item.product.name}
+    />
     <div>
       <h2>{item.product.name}</h2>
       <p>{formatCurrency(item.product.price)}</p>

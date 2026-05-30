@@ -19,7 +19,9 @@ const CartSummary = ({
     <p>Subtotal: {formatCurrency(subtotal)}</p>
     <p>Impuestos: {formatCurrency(tax)}</p>
     <strong>Total: {formatCurrency(total)}</strong>
-    <Button disabled={isCheckoutDisabled}>Ir a pagar</Button>
+    <Button className="cart-summary__checkout" disabled={isCheckoutDisabled}>
+      Ir a pagar
+    </Button>
   </aside>
 );
 
