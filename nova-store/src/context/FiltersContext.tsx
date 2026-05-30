@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useMemo, useState } from 'react';
+import { createContext, ReactNode, useCallback, useMemo, useState } from 'react';
 import { defaultFilters } from '../services/productFilterService';
 import type { ProductFilters } from '../services/productTypes';
 
@@ -19,17 +19,17 @@ interface FiltersProviderProps {
 export const FiltersProvider = ({ children }: FiltersProviderProps) => {
   const [filters, setFilters] = useState<ProductFilters>(defaultFilters);
 
-  const updateFilters = (updates: Partial<ProductFilters>) => {
+  const updateFilters = useCallback((updates: Partial<ProductFilters>) => {
     setFilters((currentFilters) => ({ ...currentFilters, ...updates }));
-  };
+  }, []);
 
-  const clearFilters = () => {
+  const clearFilters = useCallback(() => {
     setFilters(defaultFilters);
-  };
+  }, []);
 
   const value = useMemo(
     () => ({ filters, updateFilters, clearFilters }),
-    [filters]
+    [filters, updateFilters, clearFilters]
   );
 
   return (

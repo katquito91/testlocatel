@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 import './styles/responsive.css';
@@ -5,11 +6,12 @@ import Navbar from './components/Navbar';
 import { CartProvider } from './context/CartContext';
 import { CatalogProvider } from './context/CatalogContext';
 import { FiltersProvider } from './context/FiltersContext';
-import CartPage from './pages/CartPage';
-import CheckoutPage from './pages/CheckoutPage';
-import HomePage from './pages/HomePage';
-import ProductDetailPage from './pages/ProductDetailPage';
-import ProductsPage from './pages/ProductsPage';
+
+const CartPage = lazy(() => import('./pages/CartPage'));
+const CheckoutPage = lazy(() => import('./pages/CheckoutPage'));
+const HomePage = lazy(() => import('./pages/HomePage'));
+const ProductDetailPage = lazy(() => import('./pages/ProductDetailPage'));
+const ProductsPage = lazy(() => import('./pages/ProductsPage'));
 
 function App() {
   return (
@@ -20,14 +22,16 @@ function App() {
             <div className="app">
               <Navbar />
               <main className="app__main">
-                <Routes>
-                  <Route path="/" element={<HomePage />} />
-                  <Route path="/products" element={<ProductsPage />} />
-                  <Route path="/product/:id" element={<ProductDetailPage />} />
-                  <Route path="/cart" element={<CartPage />} />
-                  <Route path="/checkout" element={<CheckoutPage />} />
-                  <Route path="*" element={<Navigate to="/" replace />} />
-                </Routes>
+                <Suspense fallback={<p>Cargando vista...</p>}>
+                  <Routes>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/products" element={<ProductsPage />} />
+                    <Route path="/product/:id" element={<ProductDetailPage />} />
+                    <Route path="/cart" element={<CartPage />} />
+                    <Route path="/checkout" element={<CheckoutPage />} />
+                    <Route path="*" element={<Navigate to="/" replace />} />
+                  </Routes>
+                </Suspense>
               </main>
             </div>
           </CartProvider>

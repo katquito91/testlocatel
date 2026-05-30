@@ -23,28 +23,28 @@ export const CatalogProvider = ({ children }: CatalogProviderProps) => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    let isMounted = true;
+    const controller = new AbortController();
 
-    getProducts()
+    getProducts(controller.signal)
       .then((data) => {
-        if (!isMounted) return;
-
         setProducts(data);
         setError(null);
       })
-      .catch(() => {
-        if (!isMounted) return;
+      .catch((requestError) => {
+        if (requestError instanceof DOMException && requestError.name === 'AbortError') {
+          return;
+        }
 
         setError('No se pudieron cargar los productos. Intenta de nuevo mas tarde.');
       })
       .finally(() => {
-        if (!isMounted) return;
+        if (controller.signal.aborted) return;
 
         setLoading(false);
       });
 
     return () => {
-      isMounted = false;
+      controller.abort();
     };
   }, []);
 

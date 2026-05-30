@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useMemo, useState } from 'react';
+import { createContext, ReactNode, useCallback, useMemo, useState } from 'react';
 import type { Product } from '../services/productTypes';
 
 export interface CartItem {
@@ -25,7 +25,7 @@ interface CartProviderProps {
 export const CartProvider = ({ children }: CartProviderProps) => {
   const [items, setItems] = useState<CartItem[]>([]);
 
-  const addToCart = (product: Product) => {
+  const addToCart = useCallback((product: Product) => {
     if (product.inventoryStatus === 'out-of-stock') return;
 
     setItems((currentItems) => {
@@ -46,15 +46,15 @@ export const CartProvider = ({ children }: CartProviderProps) => {
           : item
       );
     });
-  };
+  }, []);
 
-  const removeFromCart = (productId: number) => {
+  const removeFromCart = useCallback((productId: number) => {
     setItems((currentItems) =>
       currentItems.filter((item) => item.product.id !== productId)
     );
-  };
+  }, []);
 
-  const updateQuantity = (productId: number, quantity: number) => {
+  const updateQuantity = useCallback((productId: number, quantity: number) => {
     setItems((currentItems) =>
       currentItems.map((item) =>
         item.product.id === productId
@@ -65,13 +65,13 @@ export const CartProvider = ({ children }: CartProviderProps) => {
           : item
       )
     );
-  };
+  }, []);
 
   const totalItems = items.reduce((total, item) => total + item.quantity, 0);
 
   const value = useMemo(
     () => ({ items, totalItems, addToCart, removeFromCart, updateQuantity }),
-    [items, totalItems]
+    [items, totalItems, addToCart, removeFromCart, updateQuantity]
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

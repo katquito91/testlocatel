@@ -1,5 +1,6 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import App from './App';
+import { clearProductsCache } from './services/productRestService';
 
 const backendProducts = [
   {
@@ -42,6 +43,7 @@ const renderAppAt = (route: string) => {
 
 describe('Nova Store integration', () => {
   beforeEach(() => {
+    clearProductsCache();
     fetchMock.mockReset();
     global.fetch = fetchMock as unknown as typeof fetch;
     mockProductsRequest();

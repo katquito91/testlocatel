@@ -1,9 +1,13 @@
-import { fetchProductsFromBackend } from './productRestService';
+import {
+  clearProductsCache,
+  fetchProductsFromBackend,
+} from './productRestService';
 
 describe('fetchProductsFromBackend', () => {
   const fetchMock = jest.fn();
 
   beforeEach(() => {
+    clearProductsCache();
     fetchMock.mockReset();
     global.fetch = fetchMock as unknown as typeof fetch;
   });
@@ -83,5 +87,28 @@ describe('fetchProductsFromBackend', () => {
     await expect(fetchProductsFromBackend()).rejects.toThrow(
       'Products request failed with status 500'
     );
+  });
+
+  it('uses cached products after the first successful request', async () => {
+    fetchMock.mockResolvedValue({
+      ok: true,
+      json: async () => [
+        {
+          id: 3,
+          name: 'Nova Backpack',
+          description: 'Mochila resistente',
+          category: 'Accesorios',
+          price: 44.99,
+          rating: 4.5,
+          imageUrl: 'https://example.com/backpack-320x240.jpg',
+          stock: 11,
+        },
+      ],
+    });
+
+    await fetchProductsFromBackend();
+    await fetchProductsFromBackend();
+
+    expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 });

@@ -1,8 +1,20 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
+import { clearProductsCache } from './services/productRestService';
 
-test('renders Nova Store home page', () => {
+const fetchMock = jest.fn();
+
+beforeEach(() => {
+  clearProductsCache();
+  fetchMock.mockResolvedValue({
+    ok: true,
+    json: async () => [],
+  });
+  global.fetch = fetchMock as unknown as typeof fetch;
+});
+
+test('renders Nova Store home page', async () => {
   render(<App />);
-  const heading = screen.getByRole('heading', { name: /nova store/i });
+  const heading = await screen.findByRole('heading', { name: /nova store/i });
   expect(heading).toBeInTheDocument();
 });

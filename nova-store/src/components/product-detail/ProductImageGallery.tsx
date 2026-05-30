@@ -9,7 +9,12 @@ const ProductImageGallery = ({ product }: ProductImageGalleryProps) => {
 
   return (
     <div className="product-gallery">
-      <img src={product.images.main} alt={product.name} />
+      <img
+        src={product.images.main}
+        alt={product.name}
+        loading="eager"
+        decoding="async"
+      />
       {thumbnails.length > 0 && (
         <div
           className="product-gallery__thumbs"
@@ -20,6 +25,8 @@ const ProductImageGallery = ({ product }: ProductImageGalleryProps) => {
               key={imageUrl}
               src={imageUrl}
               alt={`${product.name} miniatura ${index + 1}`}
+              loading="lazy"
+              decoding="async"
             />
           ))}
         </div>

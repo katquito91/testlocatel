@@ -18,6 +18,12 @@ interface BackendProduct {
   inventoryStatus?: InventoryStatus;
 }
 
+let productsCache: Product[] | null = null;
+
+export const clearProductsCache = () => {
+  productsCache = null;
+};
+
 const getInventoryStatus = (stock: number): InventoryStatus => {
   if (stock <= 0) return 'out-of-stock';
   if (stock <= 10) return 'low-stock';
@@ -58,8 +64,14 @@ const mapBackendProductToProduct = (product: BackendProduct): Product => {
   };
 };
 
-export const fetchProductsFromBackend = async (): Promise<Product[]> => {
-  const response = await fetch(PRODUCTS_API_URL);
+export const fetchProductsFromBackend = async (
+  signal?: AbortSignal
+): Promise<Product[]> => {
+  if (productsCache) {
+    return productsCache;
+  }
+
+  const response = await fetch(PRODUCTS_API_URL, { signal });
 
   if (!response.ok) {
     throw new Error(`Products request failed with status ${response.status}`);
@@ -71,7 +83,9 @@ export const fetchProductsFromBackend = async (): Promise<Product[]> => {
     throw new Error('Products response must be an array');
   }
 
-  return products.map(mapBackendProductToProduct);
+  productsCache = products.map(mapBackendProductToProduct);
+
+  return productsCache;
 };
 
 export const getProducts = fetchProductsFromBackend;

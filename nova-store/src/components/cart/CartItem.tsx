@@ -17,6 +17,8 @@ const CartItem = ({
       className="cart-item__image"
       src={item.product.images.main}
       alt={item.product.name}
+      loading="lazy"
+      decoding="async"
     />
     <div>
       <h2>{item.product.name}</h2>

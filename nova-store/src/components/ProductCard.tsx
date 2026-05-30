@@ -19,7 +19,12 @@ const ProductCard = ({ product, onAddToCart }: ProductCardProps) => {
 
   return (
     <article className="product-card">
-      <img src={product.imageUrl} alt={product.name} />
+      <img
+        src={product.imageUrl}
+        alt={product.name}
+        loading="lazy"
+        decoding="async"
+      />
       <div className="product-card__content">
         {product.badge && <Badge label={product.badge} />}
         <p className="product-card__category">{product.category}</p>

@@ -136,6 +136,14 @@ https://000a4cbe-cf59-467a-9928-0e94d391f532.mock.pstmn.io/products
 - Se ajustaron imágenes de cards, detalle y miniaturas para desktop, tablet y móvil.
 - Se movieron los estilos responsive a `styles/responsive.css` para separar estilos base y reglas por breakpoint.
 
+## Performance
+
+- Se agregó lazy loading de rutas con `React.lazy` y `Suspense` para dividir el código por página.
+- Se agregaron atributos `loading` y `decoding` en imágenes de cards, galería y carrito para mejorar la carga del navegador.
+- Se memoizaron callbacks de `CartContext` y `FiltersContext` con `useCallback` para reducir cambios de referencia en consumidores.
+- Se agregó `AbortController` en la carga del catálogo para cancelar requests al desmontar el provider.
+- Se agregó cache en memoria para productos en `productRestService.ts` y una utilidad controlada para limpiar la cache en pruebas.
+
 ## Pruebas unitarias
 
 Se agregaron pruebas unitarias con Jest y React Testing Library para cubrir lógica de negocio y componentes principales:
