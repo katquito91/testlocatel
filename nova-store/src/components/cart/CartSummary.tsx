@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { formatCurrency } from '../../utils/formatCurrency';
 import Button from '../Button';
 
@@ -19,9 +20,15 @@ const CartSummary = ({
     <p>Subtotal: {formatCurrency(subtotal)}</p>
     <p>Impuestos: {formatCurrency(tax)}</p>
     <strong>Total: {formatCurrency(total)}</strong>
-    <Button className="cart-summary__checkout" disabled={isCheckoutDisabled}>
-      Ir a pagar
-    </Button>
+    {isCheckoutDisabled ? (
+      <Button className="cart-summary__checkout" disabled>
+        Ir a pagar
+      </Button>
+    ) : (
+      <Link className="button button--primary cart-summary__checkout" to="/checkout">
+        Ir a pagar
+      </Link>
+    )}
   </aside>
 );
 
