@@ -19,13 +19,70 @@ git clone https://github.com/katquito91/testlocatel.git
 cd testlocatel/nova-store
 ```
 
-Configuración opcional de la API de productos. Por defecto se usa el mock definido en `src/config/api.ts`. Para apuntar a otro backend, crear `nova-store/.env`:
+Configuración opcional de la API de productos. Por defecto se usa el mock de Postman documentado en [Mock de Postman](#mock-de-postman). Para apuntar a otro backend, crear `nova-store/.env`:
 
 ```env
 REACT_APP_PRODUCTS_API_URL=https://tu-api.com/products
 ```
 
 Después de cambiar variables de entorno, reiniciar el servidor de desarrollo.
+
+## Mock de Postman
+
+El backend de productos se simula con un **Postman Mock Server**. La colección está en la raíz del repositorio:
+
+```text
+TestLocatel.postman_collection.json
+```
+
+### Endpoint
+
+| Método | Ruta | URL del mock |
+|---|---|---|
+| `GET` | `/products` | `https://000a4cbe-cf59-467a-9928-0e94d391f532.mock.pstmn.io/products` |
+
+Esta URL es la que usa la aplicación por defecto en `nova-store/src/config/api.ts`.
+
+### Importar la colección en Postman
+
+1. Abrir [Postman](https://www.postman.com/downloads/).
+2. **Import** → seleccionar `TestLocatel.postman_collection.json` desde la raíz del repo.
+3. En la colección, abrir la request **Frontend → GET/products**.
+4. Enviar la request para verificar que responde `200 OK` con el listado de productos.
+
+### Respuesta esperada
+
+El mock devuelve un arreglo JSON de productos con esta estructura:
+
+```json
+{
+  "id": 1,
+  "name": "Nova Hoodie",
+  "description": "...",
+  "category": "Ropa",
+  "price": 59.99,
+  "rating": 4.8,
+  "images": {
+    "main": "https://...",
+    "others": ["https://..."]
+  },
+  "badge": "Nuevo",
+  "stock": 12,
+  "inventoryStatus": "in-stock"
+}
+```
+
+`productRestService` normaliza estos datos al contrato interno de la aplicación.
+
+### Usar otra URL del mock
+
+Si el mock tiene otra URL (por ejemplo, al recrearlo en Postman), configurarla en `nova-store/.env`:
+
+```env
+REACT_APP_PRODUCTS_API_URL=https://tu-mock-id.mock.pstmn.io/products
+```
+
+Reiniciar `npm start` después del cambio.
 
 ## Instalación
 
@@ -129,4 +186,10 @@ Flujo de datos:
 - **Manejo de errores en catálogo:** `CatalogContext` expone `error` cuando falla la carga de productos.
 - **Performance:** Lazy loading de rutas, `loading`/`decoding` en imágenes, `useCallback` en contextos, `AbortController` en fetch y cache en memoria.
 - **Testing:** Cobertura con pruebas unitarias (servicios, componentes) e integración (`App.integration.test.tsx` con flujos completos).
-- **Documentación adicional:** Ver `NovaStoreChanges.md` para el detalle de cambios implementados.
+
+## Documentación
+
+- [NovaStoreChanges.md](./NovaStoreChanges.md) — Detalle de cambios implementados
+- [decisiones.md](./decisiones.md) — Decisiones técnicas, tradeoffs y mejoras futuras
+- [ia.md](./ia.md) — Uso de inteligencia artificial en el desarrollo
+- [PromptCreateNovaStore.md](./PromptCreateNovaStore.md) — Guía original del proyecto

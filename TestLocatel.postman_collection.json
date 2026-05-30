@@ -1,0 +1,89 @@
+{
+  "info": {
+    "_postman_id": "79d2e90c-d2ff-477e-885f-2fbc1ce11387",
+    "name": "New Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "55360712",
+    "_collection_link": "https://go.postman.co/collection/55360712-79d2e90c-d2ff-477e-885f-2fbc1ce11387?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Frontend",
+      "item": [
+        {
+          "name": "GET/products",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://000a4cbe-cf59-467a-9928-0e94d391f532.mock.pstmn.io/products",
+              "protocol": "https",
+              "host": [
+                "000a4cbe-cf59-467a-9928-0e94d391f532",
+                "mock",
+                "pstmn",
+                "io"
+              ],
+              "path": [
+                "products"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "GET /products - 200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "https://000a4cbe-cf59-467a-9928-0e94d391f532.mock.pstmn.io/products",
+                  "protocol": "https",
+                  "host": [
+                    "000a4cbe-cf59-467a-9928-0e94d391f532",
+                    "mock",
+                    "pstmn",
+                    "io"
+                  ],
+                  "path": [
+                    "products"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json",
+                  "description": "",
+                  "enabled": true
+                }
+              ],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 1,\n    \"name\": \"Nova Hoodie\",\n    \"description\": \"Hoodie suave para looks casuales y cómodos.\",\n    \"category\": \"Ropa\",\n    \"price\": 59.99,\n    \"rating\": 4.8,\n    \"images\": {\n      \"main\": \"https://my-novashop.com/cdn/shop/files/DSC_0109.jpg?v=1779014902&width=3840\",\n      \"others\": [\n        \"https://merchmake.nyc3.cdn.digitaloceanspaces.com/mockups/5125/tuaIsPG5loMwRX32WdZyBX7K4GC4OVVPnIDIWT8T.jpg\",\n        \"data:image/jpeg;base64,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\"\n      ]\n    },\n    \"badge\": \"Nuevo\",\n    \"stock\": 12,\n    \"inventoryStatus\": \"in-stock\"\n  },\n  {\n    \"id\": 2,\n    \"name\": \"Nova Sneakers\",\n    \"description\": \"Tenis ligeros para uso diario.\",\n    \"category\": \"Calzado\",\n    \"price\": 89.99,\n    \"rating\": 4.6,\n    \"images\": {\n      \"main\": \"https://media.falabella.com/falabellaCO/148225032_01/w=1500,h=1500,fit=cover\",\n      \"others\": [\n        \"https://paylesschat.com/colombia/41562-thickbox_default/zapatos_deportivos_nova_para_m.jpg\"\n      ]\n    },\n    \"badge\": \"Top venta\",\n    \"stock\": 4,\n    \"inventoryStatus\": \"low-stock\"\n  },\n  {\n    \"id\": 3,\n    \"name\": \"Nova Backpack\",\n    \"description\": \"Mochila resistente con múltiples compartimentos.\",\n    \"category\": \"Accesorios\",\n    \"price\": 44.99,\n    \"rating\": 4.5,\n    \"images\": {\n      \"main\": \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJlLnFMKfCEt7axFWQthbvhhfwYAEPtgOqIA&s\",\n      \"others\": [\n        \"https://www.gluestore.com.au/cdn/shop/files/GLUEECOM14SEP1117_1200x.jpg?v=1695018866\",\n        \"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTT-BCisGVNie1RCumoeDyEPdviRfvQsm_Og&s\"\n      ]\n    },\n    \"stock\": 0,\n    \"inventoryStatus\": \"out-of-stock\"\n  }\n]\n"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
